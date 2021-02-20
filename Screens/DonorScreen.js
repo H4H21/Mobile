@@ -1,40 +1,24 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-import { connect } from 'react-redux';
-import { setUserType } from "../actions";
-
-class InitialScreen extends Component {
+class DonorScreen extends Component {
     constructor() {
         super();
-        this.setUserType = this.setUserType.bind(this);
-    }
 
-    setUserType(userType) {
-        if (userType === "Donor") {
-            this.props.dispatch(setUserType("Donor"));
-        }
-        else if (userType === "Recipient") {
-            this.props.dispatch(setUserType("Recipient"));
-        }
-        else {
-            console.error(`Invalid user type pushed: userType = ${userType}`);
-        }
     }
 
     render() {
         return (
             <View style={styles.wrapper}>
-                <TouchableOpacity style={styles.donorButton} onPress={() => this.setUserType("Donor")}>
+                <TouchableOpacity style={styles.donorButton}>
                     <Text style={styles.textStyles}>Donor</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.receiverButton} onPress={() => this.setUserType("Recipient")}>
-                    <Text style={styles.textStyles}>Recipient</Text>
+                <TouchableOpacity style={styles.receiverButton}>
+                    <Text style={styles.textStyles}>Receiver</Text>
                 </TouchableOpacity>
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -70,7 +54,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => ({
-    userType: state.userType,
-})
-export default connect(mapStateToProps)(InitialScreen);
+export default InitialScreen;

@@ -3,16 +3,23 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import InitialScreen from "./Screens/InitialScreen";
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import ScreenNavigation from "./ScreenNavigation";
 
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
+
 import store from './store';
 
 export default function App() {
   return (
-      <Provider store={store}>
-        <ScreenNavigation/>
-      </Provider>
+      <StoreProvider store={store}>
+          <PaperProvider>
+                <ScreenNavigation/>
+          </PaperProvider>
+      </StoreProvider>
   );
 }
 

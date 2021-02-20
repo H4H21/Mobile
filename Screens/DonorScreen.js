@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InitialScreen;
+export default DonorScreen;

@@ -13,9 +13,11 @@ class InitialScreen extends Component {
     setUserType(userType) {
         if (userType === "Donor") {
             this.props.dispatch(setUserType("Donor"));
+            this.props.navigation.navigate("DonorScreen");
         }
         else if (userType === "Recipient") {
             this.props.dispatch(setUserType("Recipient"));
+            this.props.navigation.navigate("RecipientScreen");
         }
         else {
             console.error(`Invalid user type pushed: userType = ${userType}`);

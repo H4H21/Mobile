@@ -1,0 +1,12 @@
+{
+  "name": "h4h21",
+  "displayName": "h4h21",
+  "expo": {
+    "name": "h4h21",
+    "slug": "h4h21",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

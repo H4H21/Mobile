@@ -1,8 +1,6 @@
 import { FAILSAFE_SCHEMA } from 'js-yaml';
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
-import TimeSelector from "./Components/TimeSelector"
 
 class RecipientScreen extends Component {
     constructor() {
@@ -17,8 +15,7 @@ class RecipientScreen extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-            <TouchableOpacity onPress={()=>this.setState({TimeSelectorVisible: true})}><Text>When do you need food?</Text></TouchableOpacity>
-            {this.state.TimeSelectorVisible && <TimeSelector/>}    
+               
             </View>
         )
     }

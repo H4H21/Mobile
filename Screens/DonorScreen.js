@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import FoodTypeButton from "../Components/FoodTypeButton";
+import TimeSelector from "../Components/TimeSelector";
 
 /**
  * Non-perishables
@@ -20,21 +23,25 @@ class DonorScreen extends Component {
         this.state = {
             items: [],
             inputText: "",
+            timeSelectorVisible: false,
+            startTime: null,
+            endTime: null,
         }
         this.changeCallback = this.changeCallback.bind(this);
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
-        //this.inputSubmitHandler = this.inputSubmitHandler.bind(this);
+        this.submit = this.submit.bind(this);
+        this.selectAvailability = this.selectAvailability.bind(this);
+        this.getStartTime = this.getStartTime.bind(this);
+        this.getEndTime = this.getEndTime.bind(this);
     }
 
     changeCallback(foodType) {
         if (!this.state.items.includes(foodType)) {
-            //this.state.items.push(foodType);
             this.setState({items: [...this.state.items, foodType]});
         }
         else {
             console.log("changeCallback");
-            const index = this.state.items.indexOf(foodType);
-            //this.state.items.splice(index, 1); // delete exactly one value
+            //const index = this.state.items.indexOf(foodType);
             let newItems = this.state.items.filter(item => item !== foodType);
             this.setState({items: newItems});
         }
@@ -45,6 +52,33 @@ class DonorScreen extends Component {
         this.setState({inputText: text});
     }
 
+    async submitToBackend(location, time_available_start, time_available_end, food_category, food_desc) {
+        const obj = {location: location, time_available_start: time_available_start, time_available_end: time_available_end, food_category: food_category, food_desc: food_desc};
+        let resp = await fetch("https://warm-coast-75820.herokuapp.com/api/add-item", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj),
+        });
+
+    }
+
+    selectAvailability() {
+        this.setState({timeSelectorVisible: true});
+    }
+
+    submit() {
+        this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
+    }
+
+    getStartTime(timeFormatted) {
+        console.log(`start time: ${timeFormatted}`);
+        this.setState({startTime: timeFormatted});
+    }
+
+    getEndTime(timeFormatted) {
+        console.log(`end time formatted: ${timeFormatted}`);
+        this.setState({endTime: timeFormatted});
+    }
 
     render() {
         return (
@@ -70,9 +104,31 @@ class DonorScreen extends Component {
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
 
-                <Text style={styles.availabilityText}>Availability for Pickup</Text>
+                <TouchableOpacity style={{width: '90%', height: '10%'}} onPress={this.selectAvailability}>
+                    <Text style={styles.availabilityText}>Availability for Pickup</Text>
+                </TouchableOpacity>
 
+                <TouchableOpacity style={styles.submitButton}>
+                    <Text style={styles.submitText}>Submit</Text>
+                </TouchableOpacity>
 
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.timeSelectorVisible}
+                    onRequestClose={() => {
+                        //this.setModalVisible(!modalVisible);
+                        this.setState({timeSelectorVisible: false});
+                    }}
+                >
+                    <View style={styles.timeSelectionModal}>
+                        <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time"/>
+                        <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"}/>
+                        <TouchableOpacity style={styles.closeModalButton} onPress={this.submit}>
+                            <Text style={styles.closeModalText}>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
 
             </View>
         );
@@ -127,8 +183,57 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 24,
         marginTop: '5%',
+        textAlign: 'center',
 
+    },
+
+    timeSelectionModal: {
+        height: '30%',
+        width: '50%',
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: '50%',
+        alignItems: 'center',
+
+    },
+
+    closeModalButton: {
+        height: '20%',
+        width: '90%',
+        backgroundColor: '#73DC62',
+        justifyContent: 'center',
+        borderRadius: 20,
+        marginBottom: '10%',
+        marginTop: '10%',
+    },
+
+    closeModalText: {
+        fontSize: 20,
+        color: 'white',
+        textAlign: 'center',
+    },
+
+    submitButton: {
+        borderRadius: 30,
+        height: '10%',
+        width: '90%',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
+
+    },
+
+    submitText: {
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 });
 
-export default DonorScreen;
+const mapStateToProps = state => ({
+    userName: state.userName,
+    userAddress: state.userAddress,
+})
+
+export default connect(mapStateToProps)(DonorScreen);

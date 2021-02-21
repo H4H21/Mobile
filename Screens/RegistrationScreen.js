@@ -9,7 +9,9 @@ class RegistrationScreen extends Component {
         super();
         this.state = {
             name: "",
+            nameSubmitted: false,
             address: "",
+            addressSubmitted: false,
         }
         this.nameChangeHandler = this.nameChangeHandler.bind(this);
         this.addressChangeHandler = this.addressChangeHandler.bind(this);
@@ -33,40 +35,94 @@ class RegistrationScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.wrapper}>
-                <TextInput
-                    key={0}
-                    editable
-                    maxLength={40}
-                    placeholder="Insert name here"
-                    placeholderTextColor="#73DC62"
-                    onChangeText={this.nameChangeHandler}
-                    style={styles.textInput}
-                    onSubmitEditing={() => {
-                        this.props.dispatch(setUserName(this.state.name));
-                    }}
-                />
+        if (this.state.addressSubmitted) {
+            // Display address box
+            return (
+                <View style={styles.wrapper}>
+                    <TextInput
+                        key={0}
+                        editable
+                        maxLength={40}
+                        placeholder="Insert name here"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.nameChangeHandler}
+                        style={styles.textInput}
+                        onSubmitEditing={() => {
+                            this.props.dispatch(setUserName(this.state.name));
+                        }}
+                    />
+                    <TextInput
+                        key={1}
+                        editable
+                        maxLength={40}
+                        placeholder="Insert address here"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.addressChangeHandler}
+                        style={styles.textInput}
+                        onSubmitEditing={() => {
+                            this.props.dispatch(setUserAddress(this.state.address));
+                        }}
+                    />
 
-                <TextInput
-                    key={1}
-                    editable
-                    maxLength={40}
-                    placeholder="Insert address here"
-                    placeholderTextColor="#73DC62"
-                    onChangeText={this.addressChangeHandler}
-                    style={styles.textInput}
-                    onSubmitEditing={() => {
-                        this.props.dispatch(setUserAddress(this.state.address));
-                    }}
-                />
+                    <TouchableOpacity style={styles.continueButton} onPress={this.submitHandler}>
+                        <Text style={styles.continueText}>Continue</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.continueButton} onPress={this.submitHandler}>
-                    <Text style={styles.continueText}>Continue</Text>
-                </TouchableOpacity>
+                </View>
+            );
+        }
+        else if (this.state.nameSubmitted) {
+            return (
+                <View style={styles.wrapper}>
+                    <TextInput
+                        key={0}
+                        editable
+                        maxLength={40}
+                        placeholder="Insert name here"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.nameChangeHandler}
+                        style={styles.textInput}
+                        onSubmitEditing={() => {
+                            this.props.dispatch(setUserName(this.state.name));
+                        }}
+                    />
+                    <TextInput
+                        key={1}
+                        editable
+                        maxLength={40}
+                        placeholder="Insert address here"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.addressChangeHandler}
+                        style={styles.textInput}
+                        onSubmitEditing={() => {
+                            this.props.dispatch(setUserAddress(this.state.address));
+                            this.setState({addressSubmitted: true});
+                        }}
+                    />
+                </View>
+            );
+        }
+        else {
+            return (
+                <View style={styles.wrapper}>
+                    <TextInput
+                        key={0}
+                        editable
+                        maxLength={40}
+                        placeholder="Insert name here"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.nameChangeHandler}
+                        style={styles.textInput}
+                        onSubmitEditing={() => {
+                            this.props.dispatch(setUserName(this.state.name));
+                            this.setState({nameSubmitted: true});
+                        }}
+                    />
+                </View>
+            );
+        }
 
-            </View>
-        );
+
     }
 
     componentWillUnmount() {

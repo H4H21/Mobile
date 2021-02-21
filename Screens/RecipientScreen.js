@@ -67,7 +67,7 @@ class RecipientScreen extends Component {
         //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
         this.setState({ timeSelectorVisible: false });
         this.props.dispatch(setFoodRadius(this.state.foodRadius));
-        this.props.navigation.navigate("DonateConfirmation");
+        this.props.navigation.navigate("Pickup");
     }
 
     render() {

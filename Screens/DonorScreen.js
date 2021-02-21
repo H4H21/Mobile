@@ -83,57 +83,118 @@ class DonorScreen extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.wrapper}>
-                <Text style={styles.donateFood}>Donate Food</Text>
+        if (this.state.timeSelectorVisible){
+            return (
+                <View style={styles.wrapper}>
+                    <Text style={styles.donateFood}>Donate Food</Text>
 
-                <Text style={styles.foodDescription}>Food Description</Text>
+                    <Text style={styles.foodDescription}>Food Description</Text>
 
-                <TextInput
-                    editable
-                    maxLength={40}
-                    style={styles.textInput}
-                    placeholder="( Text Here )"
-                    placeholderTextColor="#73DC62"
-                    onChangeText={this.inputChangeHandler}
+                    <TextInput
+                        editable
+                        maxLength={40}
+                        style={styles.textInput}
+                        placeholder="( Text Here )"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.inputChangeHandler}
 
-                />
+                    />
 
-                <Text style={styles.foodTypeText}>Food Type</Text>
+                    <Text style={styles.foodTypeText}>Food Type</Text>
 
-                <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
-                <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
-                <FoodTypeButton foodType="Non-Perishables" changeCallback={this.changeCallback}/>
-                <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Non-Perishables" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
 
-                <TouchableOpacity style={{width: '90%', height: '10%'}} onPress={this.selectAvailability}>
-                    <Text style={styles.availabilityText}>Availability to Donate</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={{width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%',}} onPress={this.selectAvailability}>
+                        <Text style={styles.availabilityText}>Availability to Donate</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
-                    <Text style={styles.submitText}>Submit</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
+                        <Text style={styles.submitText}>Submit</Text>
+                    </TouchableOpacity>
 
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={this.state.timeSelectorVisible}
-                    onRequestClose={() => {
-                        //this.setModalVisible(!modalVisible);
-                        this.setState({timeSelectorVisible: false});
-                    }}
-                >
-                    <View style={styles.timeSelectionModal}>
-                        <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time"/>
-                        <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"}/>
-                        <TouchableOpacity style={styles.closeModalButton} onPress={() => {this.setState({timeSelectorVisible: false})}}>
-                            <Text style={styles.closeModalText}>Close</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.timeSelectorVisible}
+                        onRequestClose={() => {
+                            //this.setModalVisible(!modalVisible);
+                            this.setState({timeSelectorVisible: false});
+                        }}
+                    >
+                        <View style={{height: '100%', width: '100%', backgroundColor: 'rgba(42, 42, 42, 0.75)'}}>
+                            <View style={styles.timeSelectionModal}>
+                                <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time"/>
+                                <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"}/>
+                                <TouchableOpacity style={styles.closeModalButton} onPress={() => {this.setState({timeSelectorVisible: false})}}>
+                                    <Text style={styles.closeModalText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
 
-            </View>
-        );
+                </View>
+            );
+        }
+        else {
+            return (
+                <View style={styles.wrapper}>
+                    <Text style={styles.donateFood}>Donate Food</Text>
+
+                    <Text style={styles.foodDescription}>Food Description</Text>
+
+                    <TextInput
+                        editable
+                        maxLength={40}
+                        style={styles.textInput}
+                        placeholder="( Text Here )"
+                        placeholderTextColor="#73DC62"
+                        onChangeText={this.inputChangeHandler}
+
+                    />
+
+                    <Text style={styles.foodTypeText}>Food Type</Text>
+
+                    <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Non-Perishables" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
+
+                    <TouchableOpacity
+                        style={{width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%',}}
+                        onPress={this.selectAvailability}>
+                        <Text style={styles.availabilityText}>Availability to Donate</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
+                        <Text style={styles.submitText}>Submit</Text>
+                    </TouchableOpacity>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.timeSelectorVisible}
+                        onRequestClose={() => {
+                            //this.setModalVisible(!modalVisible);
+                            this.setState({timeSelectorVisible: false});
+                        }}
+                    >
+                        <View style={styles.timeSelectionModal}>
+                            <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time"/>
+                            <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"}/>
+                            <TouchableOpacity style={styles.closeModalButton} onPress={() => {
+                                this.setState({timeSelectorVisible: false})
+                            }}>
+                                <Text style={styles.closeModalText}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
+
+                </View>
+            );
+        }
     }
 
 }
@@ -182,10 +243,12 @@ const styles = StyleSheet.create({
     },
 
     availabilityText: {
-        color: 'white',
+        //color: 'white',
+        color: '#73DC62',
         fontSize: 24,
         marginTop: '5%',
         textAlign: 'center',
+        fontWeight: 'bold',
 
     },
 
@@ -197,12 +260,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: '50%',
         alignItems: 'center',
-
     },
 
     closeModalButton: {
         height: '20%',
-        width: '90%',
+        width: '81%',
         backgroundColor: '#73DC62',
         justifyContent: 'center',
         borderRadius: 20,

@@ -34,6 +34,19 @@ class RegistrationScreen extends Component {
         }
     }
 
+    async addressValid(address) {
+        let formatted = address.split(' ').join('+');
+        let resp = await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${formatted}&apiKey=SRVWUJjjR1Yeiztz_s3jxRVkEVEdbnEC6v4Mr_ktKI0`);
+        let respjson = await resp.json();
+        console.dir(respjson);
+        if (respjson.items.length === 1) {
+            return respjson.items[0].address.label;
+        }
+        else {
+            return false;
+        }
+    }
+
     render() {
         if (this.state.addressSubmitted) {
             // Display address box
@@ -60,7 +73,17 @@ class RegistrationScreen extends Component {
                         onChangeText={this.addressChangeHandler}
                         style={styles.textInput}
                         onSubmitEditing={() => {
-                            this.props.dispatch(setUserAddress(this.state.address));
+                            this.addressValid(this.state.address)
+                                .then(address => {
+                                    console.log(`address: ${address}`);
+                                    if (address) {
+                                        this.props.dispatch(setUserAddress(address));
+                                        this.setState({addressSubmitted: true});
+                                    }
+                                    else {
+                                        console.log("Invalid Address")
+                                    }
+                                });
                         }}
                     />
 
@@ -95,8 +118,17 @@ class RegistrationScreen extends Component {
                         onChangeText={this.addressChangeHandler}
                         style={styles.textInput}
                         onSubmitEditing={() => {
-                            this.props.dispatch(setUserAddress(this.state.address));
-                            this.setState({addressSubmitted: true});
+                            this.addressValid(this.state.address)
+                                .then(address => {
+                                    console.log(`address: ${address}`);
+                                    if (address) {
+                                        this.props.dispatch(setUserAddress(address));
+                                        this.setState({addressSubmitted: true});
+                                    }
+                                    else {
+                                        console.log("Invalid Address")
+                                    }
+                                });
                         }}
                     />
                 </View>

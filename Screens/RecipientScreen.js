@@ -141,6 +141,14 @@ class RecipientScreen extends Component {
 
                 <RNPickerSelect
                     onValueChange={(value) => console.log(value)}
+                    
+                    placeholder={[{
+                        label: 'Select a distance...',
+                        value: null,
+                        color: 'white', 
+                        }]
+                    }
+
                     items={[
                         { label: '0-5 miles', value: '5' },
                         { label: '5-10 miles', value: '10' },
@@ -282,24 +290,24 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
-      fontSize: 16,
+      fontSize: 20,
       paddingVertical: 12,
       paddingHorizontal: 10,
       borderWidth: 1,
       borderColor: 'green',
       borderRadius: 4,
-      color: 'green',
-      paddingRight: 30, // to ensure the text is never behind the icon
+      color: 'white',
+      paddingRight: 15, // to ensure the text is never behind the icon
     },
     inputAndroid: {
-      fontSize: 16,
+      fontSize: 20,
       paddingHorizontal: 10,
       paddingVertical: 8,
       borderWidth: 0.5,
       borderColor: 'green',
       borderRadius: 8,
-      color: 'green',
-      paddingRight: 30, // to ensure the text is never behind the icon
+      color: 'white',
+      paddingRight: 15, // to ensure the text is never behind the icon
     },
   });
 

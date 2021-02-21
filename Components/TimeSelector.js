@@ -81,9 +81,10 @@ TimeSelector.propTypes = {
 
 const styles = StyleSheet.create({
     wrapper: {
-        marginTop: '5%',
+        marginTop: '10%',
         width: '90%',
         height: '20%',
+        marginLeft: '5%',
 
     },
 

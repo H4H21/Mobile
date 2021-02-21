@@ -27,11 +27,13 @@ class InitialScreen extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <TouchableOpacity style={styles.donorButton} onPress={() => this.setUserType("Donor")}>
-                    <Text style={styles.textStyles}>Donor</Text>
+                <Text style={{fontSize: 50, color: 'white', position: 'absolute', top: '10%',}}>FoodCycle</Text>
+                <Text style={{color: 'black', fontSize: 15, textAlign: 'center', marginBottom: '5%'}}>Would you like to...</Text>
+                <TouchableOpacity style={styles.optionButton} onPress={() => this.setUserType("Donor")}>
+                    <Text style={styles.textStyles}>Donate Food</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.receiverButton} onPress={() => this.setUserType("Recipient")}>
-                    <Text style={styles.textStyles}>Recipient</Text>
+                <TouchableOpacity style={styles.optionButton} onPress={() => this.setUserType("Recipient")}>
+                    <Text style={styles.textStyles}>Find Food</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -46,27 +48,20 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#73DC62',
     },
 
-    donorButton: {
-        height: '20%',
+    optionButton: {
+        height: '10%',
         width: '75%',
-        color: 'green',
-        backgroundColor: 'green',
+        backgroundColor: 'white',
+        color: 'white',
         justifyContent: 'center',
-    },
-
-    receiverButton: {
-        height: '20%',
-        width: '75%',
-        color: 'blue',
-        backgroundColor: 'blue',
-        justifyContent: 'center',
-        marginTop: '10%',
+        marginBottom: '10%',
     },
 
     textStyles: {
-        color: 'white',
+        color: '#73DC62',
         textAlign: 'center',
         fontSize: 30,
     }

@@ -1,14 +1,17 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 
 
-export default function DonateConfirmation() {
+export default function DonateConfirmation(props) {
     return (
         <View style={styles.wrapper}>
             <Text style={styles.thanks}>Your food has been posted to the community</Text>
             <Text style={styles.thanks}>Thank you!</Text>
             <Image source={require('../assets/CheckMark.png')}/>
+            <TouchableOpacity onPress={() => {props.navigation.navigate("Home")}}>
+                <Text>Return to Home</Text>
+            </TouchableOpacity>
         </View>
     );
 };

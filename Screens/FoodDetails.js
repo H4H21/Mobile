@@ -5,38 +5,6 @@ import MapView, { Marker } from "react-native-maps";
 /**
  * This is the screen that gets opened when pressing on a food item in Pickup.js
  * */
-/*
-class FoodDetails extends Component {
-    constructor() {
-        super();
-    }
-
-    render() {
-        <View style={styles.wrapper}>
-            <View style={styles.innerView}>
-
-            </View>
-        </View>
-    }
-}
- */
-/*
-function FoodDetails({ route, navigation }) {
-
-    let {paramData} = route.params;
-
-    const [data, setData] = React.useState(paramData);
-
-    return (
-        <View style={styles.wrapper}>
-            <View style={styles.innerView}>
-                <Text style={styles.foodCategories}>Food Categories</Text>
-            </View>
-        </View>
-    );
-}
-*/
-
 class FoodDetails extends Component {
     constructor(props) {
         super(props);

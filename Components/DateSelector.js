@@ -22,9 +22,9 @@ export default function DateSelector() {
     }, [setVisible])
 
     const onConfirm = React.useCallback(
-        ({ hours, minutes }) => {
+        ({ date }) => {
             setVisible(false);
-            console.log({ hours, minutes });
+            console.log({ date });
         },
         [setVisible]
     );

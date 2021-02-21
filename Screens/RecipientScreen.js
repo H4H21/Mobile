@@ -27,6 +27,9 @@ class RecipientScreen extends Component {
         }
         this.selectTime = this.selectTime.bind(this);
         this.changeCallback = this.changeCallback.bind(this);
+        this.submit = this.submit.bind(this);
+        this.getStartTime = this.getStartTime.bind(this);
+        this.getEndTime = this.getEndTime.bind(this);
     }
 
     getStartTime(timeFormatted) {
@@ -57,6 +60,12 @@ class RecipientScreen extends Component {
         }
     }
 
+    submit() {
+        //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
+        this.setState({ timeSelectorVisible: false });
+        this.props.navigation.navigate("DonateConfirmation");
+    }
+    
     render() {
         // const [selectedTeam, setSelectedTeam] = useState({})
         // const [selectedTeams, setSelectedTeams] = useState([])
@@ -79,6 +88,12 @@ class RecipientScreen extends Component {
         // const label = ['Day', 'Month', 'Year'];
 
         // const { selectedValue } = this.state;
+
+        const placeholder = {
+            label: 'Select a distance...',
+            value: null,
+            color: 'white'
+        };
 
         return (
             <View style={styles.wrapper}>
@@ -142,18 +157,20 @@ class RecipientScreen extends Component {
                 <RNPickerSelect
                     onValueChange={(value) => console.log(value)}
                     
-                    placeholder={[{
-                        label: 'Select a distance...',
-                        value: null,
-                        color: 'white', 
-                        }]
-                    }
+                    // placeholder={[{
+                    //     label: 'Select a distance...',
+                    //     value: null,
+                    //     color: 'white', 
+                    //     }]
+                    // }
+
+                    placeholder={placeholder}
 
                     items={[
                         { label: '0-5 miles', value: '5' },
                         { label: '5-10 miles', value: '10' },
                         { label: '10-20 miles', value: '20' },
-                        { label: '20+ miles', value: '20' },
+                        { label: '20+ miles', value: '21' },
                     ]}
                     style={{
                         ...pickerSelectStyles,
@@ -190,8 +207,13 @@ class RecipientScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-                <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
-                {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
+
+                <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
+                    <Text style={styles.submitText}>Confirm</Text>
+                </TouchableOpacity>
+
+                {/* <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
+                {this.state.ConfirmationVisible && this.state.TimeSelectorVisible} */}
                 {/* <Text style={styles.time}>1:00</Text>
                 <Text style={styles.time}>2:00</Text> */}
             </View>
@@ -286,6 +308,21 @@ const styles = StyleSheet.create({
 
     },
 
+    submitButton: {
+        borderRadius: 30,
+        height: '10%',
+        width: '90%',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
+
+    },
+
+    submitText: {
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    }
 });
 
 const pickerSelectStyles = StyleSheet.create({

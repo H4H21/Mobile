@@ -4,8 +4,8 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import TimeSelector from "../Components/TimeSelector"
 import FoodTypeButton from "../Components/FoodTypeButton" 
-
-
+import RadiusButton from "../Components/RadiusButton" 
+import RNPickerSelect from 'react-native-picker-select';
 
 class RecipientScreen extends Component {
     constructor() {
@@ -43,10 +43,26 @@ class RecipientScreen extends Component {
                 <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
-                <br></br>
+
+                <RadiusButton Radius="0-5" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="5-10" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="10-20" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="20+" changeCallback={this.changeCallback} />
+
+                {/* <RNPickerSelect
+                    onValueChange={(value) => console.log(value)}
+                    items={[
+                        { label: '0-5', value: '5' },
+                        { label: '5-10', value: '10' },
+                        { label: '10-20', value: '20' },
+                        { label: '20+', value: '20' },
+                    ]}
+                /> */}
 
                 <Text style={styles.timeText}>When can you pick up or receive food?</Text>
                 <TimeSelector></TimeSelector>
+
+
                 <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
                 {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
                 {/* <Text style={styles.time}>1:00</Text>

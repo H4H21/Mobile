@@ -5,6 +5,7 @@
 export const SET_USER_TYPE = "SET_USER_TYPE";
 export const SET_USER_NAME = "SET_USER_NAME";
 export const SET_USER_ADDRESS = "SET_USER_ADDRESS";
+export const SET_FOOD_RADIUS = "SET_FOOD_RAOIUS";
 
 export function setUserType(userType) {
     return {
@@ -24,5 +25,12 @@ export function setUserAddress(userAddress) {
     return {
         type: SET_USER_ADDRESS,
         userAddress,
+    }
+}
+
+export function setFoodRadius(foodRadius) {
+    return {
+        type: SET_FOOD_RADIUS,
+        foodRadius,
     }
 }

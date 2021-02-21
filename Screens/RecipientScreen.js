@@ -13,6 +13,9 @@ import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
 import { Ionicons } from '../node_modules/@expo/vector-icons'
 // import MultiSelect from 'react-native-multiple-select';
 
+import { connect } from 'react-redux';
+import {setFoodRadius} from "../actions";
+
 class RecipientScreen extends Component {
     constructor() {
         super();
@@ -63,32 +66,11 @@ class RecipientScreen extends Component {
     submit() {
         //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
         this.setState({ timeSelectorVisible: false });
+        this.props.dispatch(setFoodRadius(this.state.foodRadius));
         this.props.navigation.navigate("DonateConfirmation");
     }
 
     render() {
-        // const [selectedTeam, setSelectedTeam] = useState({})
-        // const [selectedTeams, setSelectedTeams] = useState([])
-
-        // let firstYear = 1970;
-        // let years = new Array(40).fill({ label: null }).map((item, id) => {
-        //     return { label: id + firstYear, key: id }
-        // });
-
-        // let days = new Array(30).fill({ label: null }).map((item, id) => {
-        //     return { label: id + 1, key: id }
-        // });
-
-        // let months = new Array(12).fill({ label: null }).map((item, id) => {
-        //     return { label: id + 1, key: id }
-        // });
-
-
-        // const data = [days, months, years];
-        // const label = ['Day', 'Month', 'Year'];
-
-        // const { selectedValue } = this.state;
-
         const placeholder = {
             label: 'Select a distance...',
             value: null,
@@ -106,71 +88,16 @@ class RecipientScreen extends Component {
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
                 
                 <Text style={styles.distanceText}>What is the furthest you are willing to travel to receive your food?</Text>
-                {/* <DropDown></DropDown> */}
-                {/* <View style={{ margin: 30 }}>
-                    <View style={{ width: '100%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 30, paddingBottom: 20 }}>Demos</Text>
-                    </View>
-                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>Select Demo</Text>
-                    <SelectBox
-                        label="Select single"
-                        options={K_OPTIONS}
-                        value={selectedTeam}
-                        onChange={onChange()}
-                        hideInputFilter={false}
-                    />
-                    <View style={{ height: 40 }} />
-                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>MultiSelect Demo</Text>
-                    <SelectBox
-                        label="Select multiple"
-                        options={K_OPTIONS}
-                        selectedValues={selectedTeams}
-                        onMultiSelect={onMultiChange()}
-                        onTapClose={onMultiChange()}
-                        isMulti
-                    />
-                </View> */}
-
-                {/* <RadiusButton Radius="5 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="10 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="20 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="20+ miles" changeCallback={this.changeCallback} /> */}
-                
-
-                {/* <MultipleSelectPicker
-                    data={data}
-                    onChange={(option) => {
-                        console.log(option);
-                        this.setState({ selectedValue: option })
-                    }}
-                    label={label}
-
-
-                >
-                    <Text>{'Please Select!'}</Text>
-
-                </MultipleSelectPicker> 
-                <Text>{selectedValue && selectedValue.length && days[selectedValue[0]].label}</Text>
-                <Text>{selectedValue && selectedValue.length && months[selectedValue[1]].label}</Text>
-                <Text>{selectedValue && selectedValue.length && years[selectedValue[2]].label}</Text> */}
-
                 <RNPickerSelect
-                    onValueChange={(value) => console.log(value)}
-                    
-                    // placeholder={[{
-                    //     label: 'Select a distance...',
-                    //     value: null,
-                    //     color: 'white', 
-                    //     }]
-                    // }
+                    onValueChange={(value) => this.setState({foodRadius: value})}
 
                     placeholder={placeholder}
 
                     items={[
-                        { label: '0-5 miles', value: '5' },
-                        { label: '5-10 miles', value: '10' },
-                        { label: '10-20 miles', value: '20' },
-                        { label: '20+ miles', value: '21' },
+                        { label: 'Up to 5 miles', value: 5 },
+                        { label: 'Up to 10 miles', value: 10 },
+                        { label: 'Up to 20 miles', value: 20 },
+                        { label: 'Up to 50 miles', value: 50 },
                     ]}
                     style={{
                         ...pickerSelectStyles,
@@ -195,7 +122,6 @@ class RecipientScreen extends Component {
                     transparent={true}
                     visible={this.state.timeSelectorVisible}
                     onRequestClose={() => {
-                        //this.setModalVisible(!modalVisible);
                         this.setState({ timeSelectorVisible: false });
                     }}
                 >
@@ -349,4 +275,4 @@ const pickerSelectStyles = StyleSheet.create({
   });
 
 
-export default RecipientScreen;
+export default connect()(RecipientScreen);

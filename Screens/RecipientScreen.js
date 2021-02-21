@@ -78,7 +78,78 @@ class RecipientScreen extends Component {
             value: null,
             color: 'white'
         };
+        if (this.state.timeSelectorVisible) {
+            return (
+                <View style={styles.wrapper}>
+                    <Text style={styles.receiveFood}>Receive Food</Text>
 
+                    <Text style={styles.foodTypeText}>Food Type</Text>
+                    <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
+                    <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
+
+                    <Text style={styles.distanceText}>What is the furthest you are willing to travel to receive your food?</Text>
+                    <RNPickerSelect
+                        onValueChange={(value) => this.setState({foodRadius: value})}
+
+                        placeholder={placeholder}
+
+                        items={[
+                            { label: 'Up to 5 miles', value: 5 },
+                            { label: 'Up to 10 miles', value: 10 },
+                            { label: 'Up to 20 miles', value: 20 },
+                            { label: 'Up to 50 miles', value: 50 },
+                        ]}
+                        style={{
+                            ...pickerSelectStyles,
+                            iconContainer: {
+                                top: 10,
+                                right: 12,
+                            },
+                        }}
+                        value={this.state.foodRadius}
+                        Icon={() => {
+                            return <Ionicons name="md-arrow-down" size={24} color="black" />;
+                        }}
+                    />
+
+                    <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
+                    <DateSelector></DateSelector>
+
+                    <TouchableOpacity style={{ width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%', }} onPress={this.selectTime}>
+                        <Text style={styles.availabilityText}>Availability to Receive</Text>
+                    </TouchableOpacity>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.timeSelectorVisible}
+                        onRequestClose={() => {
+                            this.setState({ timeSelectorVisible: false });
+                        }}
+                    >
+                        <View style={{height: '100%', width: '100%', backgroundColor: 'rgba(42, 42, 42, 0.75)'}}>
+                            <View style={styles.timeSelectionModal}>
+                                <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time" />
+                                <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"} />
+                                <TouchableOpacity style={styles.closeModalButton} onPress={() => { this.setState({ timeSelectorVisible: false }) }}>
+                                    <Text style={styles.closeModalText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
+                        <Text style={styles.submitText}>Confirm</Text>
+                    </TouchableOpacity>
+
+                    {/* <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
+                {this.state.ConfirmationVisible && this.state.TimeSelectorVisible} */}
+                    {/* <Text style={styles.time}>1:00</Text>
+                <Text style={styles.time}>2:00</Text> */}
+                </View>
+            );
+        }
         return (
             <View style={styles.wrapper}>
                 <Text style={styles.receiveFood}>Receive Food</Text>

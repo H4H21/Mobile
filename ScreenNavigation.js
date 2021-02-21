@@ -3,9 +3,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import InitialScreen from "./Screens/HomeScreen";
+import HomeScreen from "./Screens/HomeScreen";
 import DonorScreen from "./Screens/DonorScreen";
 import RecipientScreen from "./Screens/RecipientScreen";
+import RegistrationScreen from "./Screens/RegistrationScreen";
 
 function ScreenNavigation(props) {
     const stack = createStackNavigator();
@@ -15,10 +16,11 @@ function ScreenNavigation(props) {
     */
     return (
         <NavigationContainer>
-            <stack.Navigator initialRouteName="Initial" screenOptions={{headerShown: false}} >
-                <stack.Screen name="Initial" component={InitialScreen} />
+            <stack.Navigator initialRouteName="RegistrationScreen" screenOptions={{headerShown: false}} >
+                <stack.Screen name="Home" component={HomeScreen} />
                 <stack.Screen name="DonorScreen" component={DonorScreen}/>
                 <stack.Screen name="RecipientScreen" component={RecipientScreen}/>
+                <stack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
             </stack.Navigator>
         </NavigationContainer>
     );

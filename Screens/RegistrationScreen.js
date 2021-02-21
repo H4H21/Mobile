@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, AsyncStorage} from 'react-native';
 
 import { connect } from 'react-redux';
-import {setUserName, setUserAddress} from "../actions";
+import {setUserName, setUserAddress, setUserCoords} from "../actions";
 
 class RegistrationScreen extends Component {
     constructor() {
@@ -40,7 +40,7 @@ class RegistrationScreen extends Component {
         let respjson = await resp.json();
         console.dir(respjson);
         if (respjson.items.length === 1) {
-            return respjson.items[0].address.label;
+            return [respjson.items[0].address.label, respjson.items[0].position];
         }
         else {
             return false;
@@ -74,10 +74,15 @@ class RegistrationScreen extends Component {
                         style={styles.textInput}
                         onSubmitEditing={() => {
                             this.addressValid(this.state.address)
-                                .then(address => {
+                                .then(addressAndPos => {
+                                    const address = addressAndPos[0];
+                                    const position = addressAndPos[1];
                                     console.log(`address: ${address}`);
-                                    if (address) {
+                                    console.log("position:");
+                                    console.dir(position);
+                                    if (address && position) {
                                         this.props.dispatch(setUserAddress(address));
+                                        this.props.dispatch(setUserCoords(position));
                                         this.setState({addressSubmitted: true});
                                     }
                                     else {
@@ -119,10 +124,13 @@ class RegistrationScreen extends Component {
                         style={styles.textInput}
                         onSubmitEditing={() => {
                             this.addressValid(this.state.address)
-                                .then(address => {
+                                .then(([address, position]) => {
                                     console.log(`address: ${address}`);
+                                    console.log("position:");
+                                    console.dir(position);
                                     if (address) {
                                         this.props.dispatch(setUserAddress(address));
+                                        this.props.dispatch(setUserCoords(position))
                                         this.setState({addressSubmitted: true});
                                     }
                                     else {

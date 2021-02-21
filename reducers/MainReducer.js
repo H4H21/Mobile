@@ -1,4 +1,4 @@
-import { SET_USER_TYPE, SET_USER_NAME, SET_USER_ADDRESS, SET_FOOD_RADIUS } from "../actions";
+import { SET_USER_TYPE, SET_USER_NAME, SET_USER_ADDRESS, SET_FOOD_RADIUS, SET_USER_COORDS } from "../actions";
 
 function mainReducer(state={userType: null, userName: null, userAddress: null}, action) {
     switch(action.type) {
@@ -20,6 +20,11 @@ function mainReducer(state={userType: null, userName: null, userAddress: null}, 
         case SET_FOOD_RADIUS:
             return Object.assign({}, state, {
                 foodRadius: action.foodRadius,
+            });
+
+        case SET_USER_COORDS:
+            return Object.assign({}, state, {
+                userCoords: action.userCoords,
             });
 
         default:

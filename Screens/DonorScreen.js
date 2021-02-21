@@ -149,7 +149,7 @@ class DonorScreen extends Component {
                         editable
                         maxLength={40}
                         style={styles.textInput}
-                        placeholder="( Text Here )"
+                        placeholder=""
                         placeholderTextColor="#73DC62"
                         onChangeText={this.inputChangeHandler}
 
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
         //color: 'white',
         color: '#73DC62',
         fontSize: 24,
-        marginTop: '5%',
+        marginTop: '7.5%',
         textAlign: 'center',
         fontWeight: 'bold',
 

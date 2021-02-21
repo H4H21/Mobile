@@ -116,7 +116,8 @@ class RecipientScreen extends Component {
 
                 <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
                 <DateSelector></DateSelector>
-                <TouchableOpacity style={{ width: '90%', height: '10%' }} onPress={this.selectTime}>
+
+                <TouchableOpacity style={{ width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%', }} onPress={this.selectTime}>
                     <Text style={styles.availabilityText}>Availability to Receive</Text>
                 </TouchableOpacity>
                 <Modal
@@ -229,10 +230,11 @@ const styles = StyleSheet.create({
     },
 
     availabilityText: {
-        color: 'white',
+        color: '#73DC62',
         fontSize: 24,
-        marginTop: '5%',
+        marginTop: '7.5%',
         textAlign: 'center',
+        fontWeight: 'bold',
 
     },
 

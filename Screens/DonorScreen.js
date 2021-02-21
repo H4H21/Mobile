@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
 
 import FoodTypeButton from "../Components/FoodTypeButton";
 
@@ -23,7 +23,7 @@ class DonorScreen extends Component {
         }
         this.changeCallback = this.changeCallback.bind(this);
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
-        this.inputSubmitHandler = this.inputSubmitHandler.bind(this);
+        //this.inputSubmitHandler = this.inputSubmitHandler.bind(this);
     }
 
     changeCallback(foodType) {
@@ -40,18 +40,29 @@ class DonorScreen extends Component {
         }
     }
 
-    inputChangeHandler({eventCount, target, text}) {
+    inputChangeHandler(text) {
+        console.log(`text: ${text}`);
         this.setState({inputText: text});
     }
 
-    inputSubmitHandler({text, eventCount, target}) {
-        this.setState({inputText: text});
-    }
 
     render() {
         return (
             <View style={styles.wrapper}>
                 <Text style={styles.donateFood}>Donate Food</Text>
+
+                <Text style={styles.foodDescription}>Food Description</Text>
+
+                <TextInput
+                    editable
+                    maxLength={40}
+                    onSubmitEditing={this.inputSubmitHandler}
+                    style={styles.textInput}
+                    placeholder="( Text Here )"
+                    placeholderTextColor="#73DC62"
+                    onChangeText={this.inputChangeHandler}
+
+                />
 
                 <Text style={styles.foodTypeText}>Food Type</Text>
 
@@ -60,20 +71,9 @@ class DonorScreen extends Component {
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
 
-                <Text style={styles.foodDescription}>Food Description</Text>
-
-                <TextInput
-                editable
-                maxLength={40}
-                enablesReturnKeyAutomatically
-                onSubmitEditing={this.inputSubmitHandler}
-                style={styles.textInput}
-                placeholder="( Text Here )"
-                placeholderTextColor="#73DC62"
-
-                />
-
                 <Text style={styles.availabilityText}>Availability for Pickup</Text>
+
+
 
             </View>
         );

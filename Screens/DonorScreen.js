@@ -56,7 +56,6 @@ class DonorScreen extends Component {
                 <TextInput
                     editable
                     maxLength={40}
-                    onSubmitEditing={this.inputSubmitHandler}
                     style={styles.textInput}
                     placeholder="( Text Here )"
                     placeholderTextColor="#73DC62"

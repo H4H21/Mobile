@@ -2,7 +2,7 @@ import { FAILSAFE_SCHEMA } from 'js-yaml';
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import TimeSelector from "./Components/TimeSelector"
+import TimeSelector from "../Components/TimeSelector"
  
 class RecipientScreen extends Component {
     constructor() {
@@ -10,15 +10,19 @@ class RecipientScreen extends Component {
         
         this.state={
             TimeSelectorVisible: false,
-
+            ConfirmationVisible: false,
         }
     }
 
     render() {
         return (
             <View style={styles.wrapper}>
-            <TouchableOpacity onPress={()=>this.setState({TimeSelectorVisible: true})}><Text>When do you need food?</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({ TimeSelectorVisible: true, ConfirmationVisible: true})}><Text>Select Time To receive food</Text></TouchableOpacity>
             {this.state.TimeSelectorVisible && <TimeSelector/>}
+            <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text>Confirm</Text></TouchableOpacity>
+            {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
+            {/* <Text style={styles.time}>1:00</Text>
+            <Text style={styles.time}>2:00</Text> */}
             </View>
         )
     }
@@ -55,6 +59,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
     }
+
+    // time: {
+    //     color: 'black',
+    //     textAlign: 'center',
+    //     fontSize: 30,
+    // }
 });
 
 export default RecipientScreen;

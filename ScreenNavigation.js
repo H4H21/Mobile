@@ -7,6 +7,7 @@ import HomeScreen from "./Screens/HomeScreen";
 import DonorScreen from "./Screens/DonorScreen";
 import RecipientScreen from "./Screens/RecipientScreen";
 import RegistrationScreen from "./Screens/RegistrationScreen";
+import DonateConfirmation from "./Screens/DonateConfirmation";
 
 function ScreenNavigation(props) {
     const stack = createStackNavigator();
@@ -21,6 +22,7 @@ function ScreenNavigation(props) {
                 <stack.Screen name="DonorScreen" component={DonorScreen}/>
                 <stack.Screen name="RecipientScreen" component={RecipientScreen}/>
                 <stack.Screen name="RegistrationScreen" component={RegistrationScreen}/>
+                <stack.Screen name="DonateConfirmation" component={DonateConfirmation}/>
             </stack.Navigator>
         </NavigationContainer>
     );

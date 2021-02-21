@@ -67,7 +67,9 @@ class DonorScreen extends Component {
     }
 
     submit() {
-        this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
+        //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
+        this.setState({timeSelectorVisible: false});
+        this.props.navigation.navigate("DonateConfirmation");
     }
 
     getStartTime(timeFormatted) {
@@ -101,14 +103,14 @@ class DonorScreen extends Component {
 
                 <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
-                <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
+                <FoodTypeButton foodType="Non-Perishables" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
 
                 <TouchableOpacity style={{width: '90%', height: '10%'}} onPress={this.selectAvailability}>
                     <Text style={styles.availabilityText}>Availability for Pickup</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.submitButton}>
+                <TouchableOpacity style={styles.submitButton} onPress={this.submit}>
                     <Text style={styles.submitText}>Submit</Text>
                 </TouchableOpacity>
 
@@ -124,7 +126,7 @@ class DonorScreen extends Component {
                     <View style={styles.timeSelectionModal}>
                         <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time"/>
                         <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"}/>
-                        <TouchableOpacity style={styles.closeModalButton} onPress={this.submit}>
+                        <TouchableOpacity style={styles.closeModalButton} onPress={() => {this.setState({timeSelectorVisible: false})}}>
                             <Text style={styles.closeModalText}>Close</Text>
                         </TouchableOpacity>
                     </View>

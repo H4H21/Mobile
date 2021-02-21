@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 
 import FoodTypeButton from "../Components/FoodTypeButton";
 
@@ -19,8 +19,11 @@ class DonorScreen extends Component {
         super();
         this.state = {
             items: [],
+            inputText: "",
         }
         this.changeCallback = this.changeCallback.bind(this);
+        this.inputChangeHandler = this.inputChangeHandler.bind(this);
+        this.inputSubmitHandler = this.inputSubmitHandler.bind(this);
     }
 
     changeCallback(foodType) {
@@ -37,6 +40,14 @@ class DonorScreen extends Component {
         }
     }
 
+    inputChangeHandler({eventCount, target, text}) {
+        this.setState({inputText: text});
+    }
+
+    inputSubmitHandler({text, eventCount, target}) {
+        this.setState({inputText: text});
+    }
+
     render() {
         return (
             <View style={styles.wrapper}>
@@ -48,8 +59,24 @@ class DonorScreen extends Component {
                 <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
+
+                <Text style={styles.foodDescription}>Food Description</Text>
+
+                <TextInput
+                editable
+                maxLength={40}
+                enablesReturnKeyAutomatically
+                onSubmitEditing={this.inputSubmitHandler}
+                style={styles.textInput}
+                placeholder="( Text Here )"
+                placeholderTextColor="#73DC62"
+
+                />
+
+                <Text style={styles.availabilityText}>Availability for Pickup</Text>
+
             </View>
-        )
+        );
     }
 
 }
@@ -80,10 +107,28 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
 
-    textStyles: {
+    foodDescription: {
         color: 'white',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 24,
+        marginTop: '5%',
+    },
+
+    textInput: {
+        marginTop: '5%',
+        backgroundColor: 'white',
+        height: '12%',
+        width: '90%',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
+    availabilityText: {
+        color: 'white',
+        fontSize: 24,
+        marginTop: '5%',
+
     }
 });
 

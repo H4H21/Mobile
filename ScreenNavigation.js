@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import InitialScreen from "./Screens/InitialScreen";
+import InitialScreen from "./Screens/HomeScreen";
 import DonorScreen from "./Screens/DonorScreen";
 import RecipientScreen from "./Screens/RecipientScreen";
 

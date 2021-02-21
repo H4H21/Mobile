@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { setUserType } from "../actions";
 
-class InitialScreen extends Component {
+class HomeScreen extends Component {
     constructor() {
         super();
         this.setUserType = this.setUserType.bind(this);
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     userType: state.userType,
 })
-export default connect(mapStateToProps)(InitialScreen);
+export default connect(mapStateToProps)(HomeScreen);

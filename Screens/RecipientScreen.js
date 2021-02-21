@@ -65,7 +65,7 @@ class RecipientScreen extends Component {
         this.setState({ timeSelectorVisible: false });
         this.props.navigation.navigate("DonateConfirmation");
     }
-    
+
     render() {
         // const [selectedTeam, setSelectedTeam] = useState({})
         // const [selectedTeams, setSelectedTeams] = useState([])
@@ -188,7 +188,7 @@ class RecipientScreen extends Component {
                 <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
                 <DateSelector></DateSelector>
                 <TouchableOpacity style={{ width: '90%', height: '10%' }} onPress={this.selectTime}>
-                    <Text style={styles.availabilityText}>Availability for Pickup</Text>
+                    <Text style={styles.availabilityText}>Availability to Receive</Text>
                 </TouchableOpacity>
                 <Modal
                     animationType="slide"

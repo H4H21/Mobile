@@ -9,7 +9,8 @@ import RadiusButton from "../Components/RadiusButton"
 // import { xorBy } from 'lodash'
 import DropDown from '../Components/DropDown';
 import DateSelector from '../Components/DateSelector';
-import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
+import { Ionicons } from '../node_modules/@expo/vector-icons'
 // import MultiSelect from 'react-native-multiple-select';
 
 class RecipientScreen extends Component {
@@ -22,6 +23,7 @@ class RecipientScreen extends Component {
             setSelectedTeams: false,
             timeSelectorVisible: false,
             ConfirmationVisible: false,
+            foodRadius: undefined,
         }
         this.selectTime = this.selectTime.bind(this);
         this.changeCallback = this.changeCallback.bind(this);
@@ -145,7 +147,17 @@ class RecipientScreen extends Component {
                         { label: '10-20 miles', value: '20' },
                         { label: '20+ miles', value: '20' },
                     ]}
-                    
+                    style={{
+                        ...pickerSelectStyles,
+                        iconContainer: {
+                            top: 10,
+                            right: 12,
+                        },
+                    }}
+                    value={this.state.foodRadius}
+                    Icon={() => {
+                        return <Ionicons name="md-arrow-down" size={24} color="black" />;
+                    }}
                 />
 
                 <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
@@ -267,5 +279,29 @@ const styles = StyleSheet.create({
     },
 
 });
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'green',
+      borderRadius: 4,
+      color: 'green',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'green',
+      borderRadius: 8,
+      color: 'green',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });
+
 
 export default RecipientScreen;

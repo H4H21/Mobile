@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {Touchable} from "react-native-web";
 
 class FoodItem extends Component {
     constructor() {
@@ -34,7 +33,7 @@ class FoodItem extends Component {
         return (
             <View style={styles.wrapper}>
                 <Image source={require('../assets/foodcans.jpg')} />
-                <TouchableOpacity style={styles.centerTextView}>
+                <TouchableOpacity style={styles.centerTextView} onPress={() => {this.props.navigation.navigate("FoodDetails", {data: this.props.data})}}>
                     <Text style={styles.description}>{this.props.data.data.food_desc}</Text>
                 </TouchableOpacity>
                 <Text style={styles.distance}>{dist} mi</Text>
@@ -46,6 +45,7 @@ class FoodItem extends Component {
 FoodItem.propTypes = {
     data: PropTypes.object.isRequired,
     origin: PropTypes.object.isRequired,
+    navigation: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

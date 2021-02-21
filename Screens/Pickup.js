@@ -31,9 +31,9 @@ class Pickup extends Component {
             return (
                 <View style={styles.wrapper}>
                     <Text style={styles.findFood}>Find Food</Text>
-                        <FoodItem data={this.state.dropOffs[0]} origin={this.props.origin}/>
-                        <FoodItem data={this.state.dropOffs[1]} origin={this.props.origin}/>
-                        <FoodItem data={this.state.dropOffs[2]} origin={this.props.origin}/>
+                    <FoodItem data={this.state.dropOffs[0]} origin={this.props.origin} navigation={this.props.navigation}/>
+                    <FoodItem data={this.state.dropOffs[1]} origin={this.props.origin} navigation={this.props.navigation}/>
+                    <FoodItem data={this.state.dropOffs[2]} origin={this.props.origin} navigation={this.props.navigation}/>
                 </View>
             );
         }
@@ -41,9 +41,7 @@ class Pickup extends Component {
             return (
                 <View style={styles.wrapper}>
                     <Text style={styles.findFood}>Find Food</Text>
-                    {/*
-                        <FoodItem data={this.state.dropOffs[0]} origin={this.props.origin}/>
-                    */}
+                    <FoodItem data={this.state.dropOffs[0]} origin={this.props.origin} navigation={this.props.navigation}/>
                 </View>
             );
         }

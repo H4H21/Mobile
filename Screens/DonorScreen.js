@@ -67,7 +67,7 @@ class DonorScreen extends Component {
     }
 
     submit() {
-        //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
+        this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
         this.setState({timeSelectorVisible: false});
         this.props.navigation.navigate("DonateConfirmation");
     }

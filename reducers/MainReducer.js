@@ -1,4 +1,4 @@
-import { SET_USER_TYPE, SET_USER_NAME, SET_USER_ADDRESS, SET_FOOD_RADIUS, SET_USER_COORDS } from "../actions";
+import { SET_USER_TYPE, SET_USER_NAME, SET_USER_ADDRESS, SET_FOOD_RADIUS, SET_USER_COORDS, SET_USER_TIME_START, SET_USER_TIME_END, SET_FOOD_CATEGORIES } from "../actions";
 
 function mainReducer(state={userType: null, userName: null, userAddress: null}, action) {
     switch(action.type) {
@@ -26,6 +26,20 @@ function mainReducer(state={userType: null, userName: null, userAddress: null}, 
             return Object.assign({}, state, {
                 userCoords: action.userCoords,
             });
+
+        case SET_USER_TIME_START:
+            return Object.assign({}, state, {
+                userTimeStart: action.userTimeStart,
+            });
+
+        case SET_USER_TIME_END:
+            return Object.assign({}, state, {
+                userTimeEnd: action.userTimeEnd,
+            });
+
+        case SET_FOOD_CATEGORIES:
+            return { ...state, foodCategories: action.foodCategories };
+
 
         default:
             return state;

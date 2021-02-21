@@ -163,7 +163,7 @@ class DonorScreen extends Component {
                     <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
 
                     <TouchableOpacity
-                        style={{width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%',}}
+                        style={{width: '90%', height: '10%', backgroundColor: 'white', borderRadius: 20, margin: '5%'}}
                         onPress={this.selectAvailability}>
                         <Text style={styles.availabilityText}>Availability to Donate</Text>
                     </TouchableOpacity>

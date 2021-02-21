@@ -28,7 +28,7 @@ class HomeScreen extends Component {
         return (
             <View style={styles.wrapper}>
                 <Text style={{fontSize: 50, color: 'white', position: 'absolute', top: '10%',}}>FoodCycle</Text>
-                <Text style={{color: 'black', fontSize: 15, textAlign: 'center', marginBottom: '5%'}}>Would you like to...</Text>
+                <Text style={{color: 'white', fontSize: 20, textAlign: 'center', marginBottom: '5%'}}>Would you like to...</Text>
                 <TouchableOpacity style={styles.optionButton} onPress={() => this.setUserType("Donor")}>
                     <Text style={styles.textStyles}>Donate Food</Text>
                 </TouchableOpacity>

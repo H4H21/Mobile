@@ -14,7 +14,7 @@ import { Ionicons } from '../node_modules/@expo/vector-icons'
 // import MultiSelect from 'react-native-multiple-select';
 
 import { connect } from 'react-redux';
-import {setFoodRadius} from "../actions";
+import {setFoodCategories, setFoodRadius } from "../actions";
 
 class RecipientScreen extends Component {
     constructor() {
@@ -27,6 +27,8 @@ class RecipientScreen extends Component {
             timeSelectorVisible: false,
             ConfirmationVisible: false,
             foodRadius: undefined,
+            startTime: null,
+            endTime: null,
         }
         this.selectTime = this.selectTime.bind(this);
         this.changeCallback = this.changeCallback.bind(this);
@@ -64,9 +66,9 @@ class RecipientScreen extends Component {
     }
 
     submit() {
-        //this.submitToBackend(this.props.userAddress, this.state.startTime, this.state.endTime, this.state.items, this.state.inputText);
         this.setState({ timeSelectorVisible: false });
         this.props.dispatch(setFoodRadius(this.state.foodRadius));
+        this.props.dispatch(setFoodCategories(this.state.items));
         this.props.navigation.navigate("Pickup");
     }
 

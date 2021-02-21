@@ -20,10 +20,10 @@ class RecipientScreen extends Component {
             items: [],
             selectedTeams: [],
             setSelectedTeams: false,
-            TimeSelectorVisible: false,
+            timeSelectorVisible: false,
             ConfirmationVisible: false,
         }
-
+        this.selectTime = this.selectTime.bind(this);
         this.changeCallback = this.changeCallback.bind(this);
     }
 
@@ -37,6 +37,9 @@ class RecipientScreen extends Component {
         this.setState({ endTime: timeFormatted });
     }
 
+    selectTime() {
+        this.setState({ timeSelectorVisible: true });
+    }
 
     changeCallback(foodType) {
         if (!this.state.items.includes(foodType)) {
@@ -147,7 +150,9 @@ class RecipientScreen extends Component {
 
                 <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
                 <DateSelector></DateSelector>
-                {/* <TimeSelector></TimeSelector> */}
+                <TouchableOpacity style={{ width: '90%', height: '10%' }} onPress={this.selectTime}>
+                    <Text style={styles.availabilityText}>Availability for Pickup</Text>
+                </TouchableOpacity>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -165,8 +170,6 @@ class RecipientScreen extends Component {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-
-
                 <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
                 {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
                 {/* <Text style={styles.time}>1:00</Text>
@@ -207,6 +210,17 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
 
+    timeSelectionModal: {
+        height: '25%',
+        width: '50%',
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: '50%',
+        alignItems: 'center',
+
+    },
+
     receiveFood: {
         color: 'white',
         textAlign: 'center',
@@ -243,6 +257,15 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
     },
+
+    availabilityText: {
+        color: 'white',
+        fontSize: 24,
+        marginTop: '5%',
+        textAlign: 'center',
+
+    },
+
 });
 
 export default RecipientScreen;

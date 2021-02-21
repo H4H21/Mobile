@@ -1,6 +1,6 @@
 import { FAILSAFE_SCHEMA } from 'js-yaml';
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import TimeSelector from "../Components/TimeSelector"
 import FoodTypeButton from "../Components/FoodTypeButton" 
@@ -9,7 +9,7 @@ import RadiusButton from "../Components/RadiusButton"
 // import { xorBy } from 'lodash'
 import DropDown from '../Components/DropDown';
 import DateSelector from '../Components/DateSelector';
-// import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect from 'react-native-picker-select';
 // import MultiSelect from 'react-native-multiple-select';
 
 class RecipientScreen extends Component {
@@ -26,6 +26,17 @@ class RecipientScreen extends Component {
 
         this.changeCallback = this.changeCallback.bind(this);
     }
+
+    getStartTime(timeFormatted) {
+        console.log(`start time: ${timeFormatted}`);
+        this.setState({ startTime: timeFormatted });
+    }
+
+    getEndTime(timeFormatted) {
+        console.log(`end time formatted: ${timeFormatted}`);
+        this.setState({ endTime: timeFormatted });
+    }
+
 
     changeCallback(foodType) {
         if (!this.state.items.includes(foodType)) {
@@ -100,10 +111,10 @@ class RecipientScreen extends Component {
                     />
                 </View> */}
 
-                <RadiusButton Radius="0-5 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="5-10 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="10-20 miles" changeCallback={this.changeCallback} />
-                <RadiusButton Radius="20+ miles" changeCallback={this.changeCallback} />
+                {/* <RadiusButton Radius="5 miles" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="10 miles" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="20 miles" changeCallback={this.changeCallback} />
+                <RadiusButton Radius="20+ miles" changeCallback={this.changeCallback} /> */}
                 
 
                 {/* <MultipleSelectPicker
@@ -123,7 +134,7 @@ class RecipientScreen extends Component {
                 <Text>{selectedValue && selectedValue.length && months[selectedValue[1]].label}</Text>
                 <Text>{selectedValue && selectedValue.length && years[selectedValue[2]].label}</Text> */}
 
-                {/* <RNPickerSelect
+                <RNPickerSelect
                     onValueChange={(value) => console.log(value)}
                     items={[
                         { label: '0-5 miles', value: '5' },
@@ -132,11 +143,29 @@ class RecipientScreen extends Component {
                         { label: '20+ miles', value: '20' },
                     ]}
                     
-                /> */}
+                />
 
                 <Text style={styles.distanceText}>When can you pick up or receive food?</Text>
                 <DateSelector></DateSelector>
-                <TimeSelector></TimeSelector>
+                {/* <TimeSelector></TimeSelector> */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.timeSelectorVisible}
+                    onRequestClose={() => {
+                        //this.setModalVisible(!modalVisible);
+                        this.setState({ timeSelectorVisible: false });
+                    }}
+                >
+                    <View style={styles.timeSelectionModal}>
+                        <TimeSelector getTimeCallback={this.getStartTime} buttonText="Start Time" />
+                        <TimeSelector getTimeCallback={this.getEndTime} buttonText={"End Time"} />
+                        <TouchableOpacity style={styles.closeModalButton} onPress={() => { this.setState({ timeSelectorVisible: false }) }}>
+                            <Text style={styles.closeModalText}>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+
 
                 <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
                 {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
@@ -198,6 +227,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
      },
+
+    closeModalButton: {
+        height: '20%',
+        width: '90%',
+        backgroundColor: '#73DC62',
+        justifyContent: 'center',
+        borderRadius: 20,
+        marginBottom: '10%',
+        marginTop: '10%',
+    },
+
+    closeModalText: {
+        fontSize: 20,
+        color: 'white',
+        textAlign: 'center',
+    },
 });
 
 export default RecipientScreen;

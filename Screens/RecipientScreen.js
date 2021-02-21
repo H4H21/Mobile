@@ -4,6 +4,9 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import TimeSelector from "../Components/TimeSelector"
 import FoodTypeButton from "../Components/FoodTypeButton" 
+
+
+
 class RecipientScreen extends Component {
     constructor() {
         super();
@@ -40,10 +43,11 @@ class RecipientScreen extends Component {
                 <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
-                <TouchableOpacity onPress={() => this.setState({ TimeSelectorVisible: true, ConfirmationVisible: true})}>
-                    <Text style={styles.time}>Select Time To receive food</Text></TouchableOpacity>
-                {this.state.TimeSelectorVisible && <TimeSelector/>}
-                <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text>Confirm</Text></TouchableOpacity>
+                <br></br>
+
+                <Text style={styles.timeText}>When can you pick up or receive food?</Text>
+                <TimeSelector></TimeSelector>
+                <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text style={styles.confirmText}>Confirm</Text></TouchableOpacity>
                 {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
                 {/* <Text style={styles.time}>1:00</Text>
                 <Text style={styles.time}>2:00</Text> */}
@@ -84,11 +88,17 @@ const styles = StyleSheet.create({
         //position: 'absolute',
     },
 
-     time: {
+     timeText: {
          color: 'white',
          textAlign: 'center',
-         fontSize: 30,
-     }
+         fontSize: 24,
+     },
+
+     confirmText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 30,
+     },
 });
 
 export default RecipientScreen;

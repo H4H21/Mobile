@@ -1,7 +1,7 @@
 import { FAILSAFE_SCHEMA } from 'js-yaml';
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 import TimeSelector from "../Components/TimeSelector"
 import FoodTypeButton from "../Components/FoodTypeButton" 
 class RecipientScreen extends Component {
@@ -33,14 +33,15 @@ class RecipientScreen extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                
-                
+                <Text style={styles.receiveFood}>Receive Food</Text>
+
                 <Text style={styles.foodTypeText}>Food Type</Text>
                 <FoodTypeButton foodType="Produce" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Frozen" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Canned Goods" changeCallback={this.changeCallback}/>
                 <FoodTypeButton foodType="Other" changeCallback={this.changeCallback}/>
-                <TouchableOpacity onPress={() => this.setState({ TimeSelectorVisible: true, ConfirmationVisible: true})}><Text>Select Time To receive food</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setState({ TimeSelectorVisible: true, ConfirmationVisible: true})}>
+                    <Text style={styles.time}>Select Time To receive food</Text></TouchableOpacity>
                 {this.state.TimeSelectorVisible && <TimeSelector/>}
                 <TouchableOpacity onPress={() => this.setState({ ConfirmationVisible: true })}><Text>Confirm</Text></TouchableOpacity>
                 {this.state.ConfirmationVisible && this.state.TimeSelectorVisible}
@@ -57,24 +58,8 @@ const styles = StyleSheet.create({
         width: '100%',
         position: 'absolute',
         alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    donorButton: {
-        height: '20%',
-        width: '75%',
-        color: 'green',
-        backgroundColor: 'green',
-        justifyContent: 'center',
-    },
-
-    receiverButton: {
-        height: '20%',
-        width: '75%',
-        color: 'blue',
-        backgroundColor: 'blue',
-        justifyContent: 'center',
-        marginTop: '10%',
+        //justifyContent: 'center',
+        backgroundColor: '#73DC62',
     },
 
     textStyles: {
@@ -90,11 +75,20 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
 
-    // time: {
-    //     color: 'black',
-    //     textAlign: 'center',
-    //     fontSize: 30,
-    // }
+    receiveFood: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginTop: '10%',
+        //position: 'absolute',
+    },
+
+     time: {
+         color: 'white',
+         textAlign: 'center',
+         fontSize: 30,
+     }
 });
 
 export default RecipientScreen;

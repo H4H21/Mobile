@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         width: '90%',
         height: '20%',
-
+        // marginBottom: '1%',
     },
 
     button: {
         height: '100%',
-        width: '90%',
+        width: '100%',
         backgroundColor: 'blue',
         borderRadius: 20,
         justifyContent: 'center',

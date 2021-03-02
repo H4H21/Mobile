@@ -11,7 +11,7 @@ class Pickup extends Component {
             dropOffs: [],
             ready: false,
         }
-        this.apiKey = "SRVWUJjjR1Yeiztz_s3jxRVkEVEdbnEC6v4Mr_ktKI0";
+        this.apiKey = "INSERT_API_KEY_HERE";
     }
 
     async getDropoffsWithinDistance(dist) {

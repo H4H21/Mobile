@@ -36,7 +36,7 @@ class RegistrationScreen extends Component {
 
     async addressValid(address) {
         let formatted = address.split(' ').join('+');
-        let resp = await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${formatted}&apiKey=SRVWUJjjR1Yeiztz_s3jxRVkEVEdbnEC6v4Mr_ktKI0`);
+        let resp = await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${formatted}&apiKey=INSERT_API_KEY_HERE`);
         let respjson = await resp.json();
         console.dir(respjson);
         if (respjson.items.length === 1) {
